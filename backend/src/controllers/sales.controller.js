@@ -16,7 +16,17 @@ const find = async (req, res) => {
   res.status(mapStatusHTTP(status)).json(data);
 };
 
+const create = async (req, res) => {
+  // const travelData = { ...req.body };
+  const sales = req.body;
+  
+  const { status, data } = await salesService.checkSales(sales);
+
+  res.status(mapStatusHTTP(status)).json(data);
+};
+
 module.exports = {
   list,
   find,
+  create,
 };

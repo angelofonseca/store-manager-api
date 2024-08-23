@@ -7,6 +7,7 @@ const list = async () => {
     INNER JOIN sales_products AS sap 
     ON sal.id = sap.sale_id
   `;
+
   const [sales] = await connection.execute(query);
 
   return sales;
@@ -20,12 +21,41 @@ const find = async (saleId) => {
     ON sal.id = sap.sale_id 
     WHERE id = ?
   `;
+
   const [sale] = await connection.execute(query, [saleId]);
   
   return sale;
 };
 
+const createSale = async () => {
+  const query = 'INSERT INTO sales (date) VALUES (NOW())';
+  const [{ insertId }] = await connection.execute(query);
+  
+  return insertId;
+};
+
+const createSaleProduct = async (saleId, productId, quantity) => {
+  const query = 'INSERT INTO sales_products (sale_id, product_id, quantity) VALUES (?, ?, ?)';
+  
+  await connection.execute(query, [saleId, productId, quantity]);
+};
+
+const create = async (itemsSold) => {
+  // Cria uma nova venda na tabela sales
+  const saleId = await createSale();
+
+  // Insere cada produto vendido na tabela sales_products
+  await Promise.all(itemsSold.map(({ productId, quantity }) => 
+    createSaleProduct(saleId, productId, quantity)));
+
+  return {
+    id: saleId,
+    itemsSold,
+  };
+};
+
 module.exports = {
   list,
   find,
+  create,
 };
