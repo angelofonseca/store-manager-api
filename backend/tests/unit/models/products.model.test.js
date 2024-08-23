@@ -12,9 +12,9 @@ describe('Products Model', function () {
   it('Get all products', async function () {
     sinon.stub(connection, 'execute').resolves([productsFromDB]);
 
-    const product = await productsModel.list();
+    const products = await productsModel.list();
 
-    expect(product).to.be.deep.equal(productsFromModel);
+    expect(products).to.be.deep.equal(productsFromModel);
   });
 
   it('Get product by id', async function () {

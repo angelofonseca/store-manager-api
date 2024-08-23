@@ -12,7 +12,7 @@ const list = async () => {
   return sales;
 };
 
-const find = async (id) => {
+const find = async (saleId) => {
   const columns = 'product_id AS productId, quantity, date';
   const query = `
     SELECT ${columns} FROM sales AS sal 
@@ -20,7 +20,7 @@ const find = async (id) => {
     ON sal.id = sap.sale_id 
     WHERE id = ?
   `;
-  const [sale] = await connection.execute(query, [id]);
+  const [sale] = await connection.execute(query, [saleId]);
   
   return sale;
 };

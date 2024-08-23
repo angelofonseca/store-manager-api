@@ -5,9 +5,9 @@ const sinonChai = require('sinon-chai');
 const { expect } = chai;
 chai.use(sinonChai);
 
-const { productsController } = require('../../../src/controllers');
-const { productsService } = require('../../../src/services');
-const { listProducts, listProduct, invalidIDProduct } = require('../mocks/result.mock');
+const { productsController } = require('../../../src/controllers/index');
+const { productsService } = require('../../../src/services/index');
+const { listProducts, listProduct, invalidProductId } = require('../mocks/results.mock');
 const { productsFromDB, productFromDB } = require('../mocks/products.mock');
 
 describe('Products Controller', function () {
@@ -48,7 +48,7 @@ describe('Products Controller', function () {
   });
 
   it('Show product not found message and status', async function () {
-    sinon.stub(productsService, 'checkProduct').resolves(invalidIDProduct);
+    sinon.stub(productsService, 'checkProduct').resolves(invalidProductId);
 
     const req = {
       params: { id: '1' },

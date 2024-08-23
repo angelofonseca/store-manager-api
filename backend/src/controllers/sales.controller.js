@@ -8,8 +8,8 @@ const list = async (req, res) => {
 };
 
 const find = async (req, res) => {
-  const { id } = req.params;
-  const { status, data } = await salesService.checkSale(id);
+  const { id: saleId } = req.params;
+  const { status, data } = await salesService.checkSale(saleId);
 
   if (data.message) return res.status(mapStatusHTTP(status)).json(data);
 

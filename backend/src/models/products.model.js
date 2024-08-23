@@ -7,9 +7,9 @@ const list = async () => {
   return products;
 };
 
-const find = async (id) => {
+const find = async (productId) => {
   const query = 'SELECT * FROM products WHERE id = ?';
-  const [[product]] = await connection.execute(query, [id]);
+  const [[product]] = await connection.execute(query, [productId]);
   
   return product;
 };
