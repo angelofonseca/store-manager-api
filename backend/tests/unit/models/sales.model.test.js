@@ -4,7 +4,7 @@ const { salesModel } = require('../../../src/models');
 const { saleFromDB, salesFromDB, saleFromModel, salesFromModel } = require('../mocks/sales.mock');
 const connection = require('../../../src/models/connection');
 
-describe('Sales Service Testing', function () {
+describe('Sales Model Testing', function () {
   afterEach(function () {
     sinon.restore();
   });

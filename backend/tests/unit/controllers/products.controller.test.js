@@ -10,7 +10,7 @@ const { productsService } = require('../../../src/services/index');
 const { listProducts, listProduct, invalidProductId } = require('../mocks/results.mock');
 const { productsFromDB, productFromDB, newProductFromDB } = require('../mocks/products.mock');
 
-describe('Products Controller', function () {
+describe('Products Controller Testing', function () {
   afterEach(function () {
     sinon.restore();
   });

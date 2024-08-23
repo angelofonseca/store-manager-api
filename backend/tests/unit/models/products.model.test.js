@@ -12,7 +12,7 @@ const {
   insertIdFromModel, 
 } = require('../mocks/products.mock');
 
-describe('Products Model', function () {
+describe('Products Model Testing', function () {
   afterEach(function () {
     sinon.restore();
   });

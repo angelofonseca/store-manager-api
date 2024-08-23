@@ -6,7 +6,7 @@ const { salesService } = require('../../../src/services/index');
 const { saleFromDB, salesFromDB } = require('../mocks/sales.mock');
 const { listSales, listSale, invalidSaleId } = require('../mocks/results.mock');
 
-describe('Sales Service Testing', function () {
+describe('Sales Controller Testing', function () {
   afterEach(function () {
     sinon.restore();
   });

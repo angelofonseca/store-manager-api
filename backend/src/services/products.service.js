@@ -1,4 +1,5 @@
 const { productsModel } = require('../models');
+const { validateNewProduct } = require('./validations/validateInputs');
 
 const checkList = async () => {
   const products = await productsModel.list();
@@ -14,6 +15,9 @@ const checkProduct = async (productId) => {
 };
 
 const checkProductName = async (productName) => {
+  const error = validateNewProduct(productName);
+
+  if (error) return { status: error.status, data: { message: error.message } };
   const product = await productsModel.create(productName);
   
   return ({ status: 'CREATED', data: product });
