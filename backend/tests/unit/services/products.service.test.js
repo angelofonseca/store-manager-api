@@ -2,7 +2,7 @@ const { expect } = require('chai');
 const sinon = require('sinon');
 const { productsService } = require('../../../src/services');
 const { productsModel } = require('../../../src/models');
-const { productsFromDB, productsFromModel, productFromDB, productFromModel } = require('../mocks/products.mock');
+const { productsFromDB, productsFromModel, productFromDB, productFromModel, newProductFromDB } = require('../mocks/products.mock');
 
 describe('Products Service Testing', function () {
   afterEach(function () {
@@ -36,5 +36,15 @@ describe('Products Service Testing', function () {
 
     expect(status).to.be.eq('NOT_FOUND');
     expect(data.message).to.be.eq('Product not found');
+  });
+
+  it('Creates a new product', async function () {
+    sinon.stub(productsModel, 'create').resolves(newProductFromDB);
+    
+    const newProduct = 'Test Product';
+    const { status, data } = await productsService.checkProductName(newProduct);
+
+    expect(status).to.be.eq('CREATED');
+    expect(data.id).to.be.eq(1123131);
   });
 });

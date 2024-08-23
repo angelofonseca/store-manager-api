@@ -38,9 +38,25 @@ const productFromModel = {
   name: 'Martelo de Thor',
 };
 
+const mockNewProduct = {
+  name: 'Product 1',
+};
+
+const newProductFromDB = {
+  id: 1123131,
+  name: 'Test Product',
+};
+
+const insertIdFromDB = { insertId: 1000 };
+const insertIdFromModel = 1000;
+
 module.exports = {
   productsFromDB,
   productFromDB,
   productFromModel,
   productsFromModel,
+  mockNewProduct,
+  insertIdFromDB,
+  insertIdFromModel,
+  newProductFromDB,
 };
