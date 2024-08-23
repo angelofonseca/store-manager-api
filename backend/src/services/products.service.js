@@ -13,7 +13,14 @@ const checkProduct = async (productId) => {
   return { status: 'SUCCESSFUL', data: product };
 };
 
+const checkProductName = async (productName) => {
+  const product = await productsModel.create(productName);
+  
+  return ({ status: 'CREATED', data: product });
+};
+
 module.exports = {
   checkList,
   checkProduct,
+  checkProductName,
 };

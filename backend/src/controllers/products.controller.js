@@ -16,7 +16,16 @@ const find = async (req, res) => {
   res.status(mapStatusHTTP(status)).json(data);
 };
 
+const create = async (req, res) => {
+  const { name } = req.body;
+
+  const { status, data } = await productsService.checkProductName(name);
+
+  res.status(mapStatusHTTP(status)).json(data);
+};
+
 module.exports = {
   list,
   find,
+  create,
 };
