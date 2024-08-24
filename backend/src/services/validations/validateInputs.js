@@ -1,4 +1,4 @@
-const { productSchema } = require('./schemas');
+const { productSchema, salesSchema } = require('./schemas');
 
 const validateNewProduct = (name) => {
   const { error } = productSchema.validate({ name });
@@ -16,6 +16,25 @@ const validateNewProduct = (name) => {
   }
 };
 
+const validateNewSales = async (sale) => {
+  const { error } = salesSchema.validate(sale);
+
+  if (error) {
+    console.log(error);
+    
+    if (error.message.includes('is required')) {
+      return { status: 'BAD_REQUEST', message: error.message };
+    }
+  
+    if (error.message.includes('Product not found')) {
+      return { status: 'NOT_FOUND', message: error.message };
+    }
+    
+    return { status: 'INVALID_VALUE', message: error.message };
+  }
+};
+
 module.exports = {
   validateNewProduct,
+  validateNewSales,
 };
