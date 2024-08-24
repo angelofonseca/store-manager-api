@@ -20,8 +20,6 @@ const validateNewSales = async (sale) => {
   const { error } = salesSchema.validate(sale);
 
   if (error) {
-    console.log(error);
-    
     if (error.message.includes('is required')) {
       return { status: 'BAD_REQUEST', message: error.message };
     }

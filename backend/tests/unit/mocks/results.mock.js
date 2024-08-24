@@ -1,5 +1,5 @@
 const { productsFromModel, productFromModel } = require('./products.mock');
-const { salesFromModel, saleFromModel } = require('./sales.mock');
+const { salesFromModel, saleFromModel, newSaleFromModel } = require('./sales.mock');
 
 const listProducts = {
   status: 'SUCCESSFUL',
@@ -31,6 +31,11 @@ const invalidSaleId = {
   data: { message: 'Sale not found' },
 };
 
+const createdSale = {
+  status: 'CREATED',
+  data: newSaleFromModel,
+};
+
 module.exports = {
   listProducts,
   listProduct,
@@ -38,4 +43,5 @@ module.exports = {
   listSales,
   listSale,
   invalidSaleId,
+  createdSale,
 };

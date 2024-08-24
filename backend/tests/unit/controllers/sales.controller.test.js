@@ -3,8 +3,8 @@ const sinon = require('sinon');
 
 const { salesController } = require('../../../src/controllers/index');
 const { salesService } = require('../../../src/services/index');
-const { saleFromDB, salesFromDB } = require('../mocks/sales.mock');
-const { listSales, listSale, invalidSaleId } = require('../mocks/results.mock');
+const { saleFromDB, salesFromDB, validSale, newSaleFromModel } = require('../mocks/sales.mock');
+const { listSales, listSale, invalidSaleId, createdSale } = require('../mocks/results.mock');
 
 describe('Sales Controller Testing', function () {
   afterEach(function () {
@@ -58,5 +58,22 @@ describe('Sales Controller Testing', function () {
   
     expect(res.status).to.have.been.calledWith(404);
     expect(res.json).to.have.been.calledWith(sinon.match.has('message'));
+  });
+
+  it('Create new sale', async function () {
+    sinon.stub(salesService, 'checkSales').resolves(createdSale);
+
+    const req = {
+      body: { validSale },
+    };
+    const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+
+    await salesController.create(req, res);
+  
+    expect(res.status).to.have.been.calledWith(201);
+    expect(res.json).to.have.been.calledWith(newSaleFromModel);
   });
 });

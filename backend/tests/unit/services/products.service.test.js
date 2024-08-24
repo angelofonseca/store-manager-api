@@ -47,4 +47,12 @@ describe('Products Service Testing', function () {
     expect(status).to.be.eq('CREATED');
     expect(data.id).to.be.eq(1123131);
   });
+
+  it('Error when creating a product with invalid name', async function () {
+    const newProduct = 'A';
+
+    const { status } = await productsService.checkProductName(newProduct);
+
+    expect(status).to.be.eq('INVALID_VALUE');
+  });
 });

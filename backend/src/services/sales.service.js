@@ -26,8 +26,8 @@ const checkSales = async (sales) => {
   const error = await validateNewSales(sales);
   if (error) return { status: error.status, data: { message: error.message } };
 
-  const { status, data } = await checkProductsId(sales);
-  if (status) return { status, data };
+  const notFound = await checkProductsId(sales);
+  if (notFound) return { status: notFound.status, data: notFound.data };
 
   const newSales = await salesModel.create(sales);
 
