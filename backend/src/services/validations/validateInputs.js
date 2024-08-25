@@ -1,6 +1,6 @@
 const { productSchema, salesSchema } = require('./schemas');
 
-const validateNewProduct = (name) => {
+const validateProductName = (name) => {
   const { error } = productSchema.validate({ name });
 
   if (error) {
@@ -16,7 +16,7 @@ const validateNewProduct = (name) => {
   }
 };
 
-const validateNewSales = async (sale) => {
+const validateSale = async (sale) => {
   const { error } = salesSchema.validate(sale);
 
   if (error) {
@@ -33,6 +33,6 @@ const validateNewSales = async (sale) => {
 };
 
 module.exports = {
-  validateNewProduct,
-  validateNewSales,
+  validateProductName,
+  validateSale,
 };

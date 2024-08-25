@@ -1,5 +1,5 @@
 const { salesModel } = require('../models');
-const { validateNewSales } = require('./validations/validateInputs');
+const { validateSale } = require('./validations/validateInputs');
 const productsService = require('./products.service');
 
 const checkList = async () => {
@@ -23,7 +23,7 @@ const checkProductsId = async (sales) => {
 };
 
 const checkSales = async (sales) => {
-  const error = await validateNewSales(sales);
+  const error = await validateSale(sales);
   if (error) return { status: error.status, data: { message: error.message } };
 
   const notFound = await checkProductsId(sales);
