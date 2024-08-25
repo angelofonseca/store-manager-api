@@ -7,7 +7,6 @@ const checkList = async () => {
   return { status: 'SUCCESSFUL', data: products };
 };
 
-// Desenvolvimento
 const checkProduct = async (productId) => {
   const product = await productsModel.find(productId);
 
@@ -37,9 +36,20 @@ const checkForUpdate = async (productId, productName) => {
   return ({ status: 'SUCCESSFUL', data: productUpdated });
 };
 
+const checkRemove = async (productId) => {
+  const product = await productsModel.find(productId);
+
+  if (!product) return { status: 'NOT_FOUND', data: { message: 'Product not found' } };
+
+  await productsModel.remove(productId);
+
+  return { status: 'NO_CONTENT' };
+};
+
 module.exports = {
   checkList,
   checkProduct,
   checkProductName,
   checkForUpdate,
+  checkRemove,
 };
