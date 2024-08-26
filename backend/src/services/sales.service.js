@@ -34,8 +34,21 @@ const checkSales = async (sales) => {
   return { status: 'CREATED', data: newSales };
 };
 
+const checkRemove = async (saleId) => {
+  const { status, data } = await checkSale(saleId);
+
+  if (status === 'SUCCESSFUL') {
+    await salesModel.remove(saleId);
+
+    return { status: 'NO_CONTENT' };
+  }
+
+  return { status, data };
+};
+
 module.exports = {
   checkList,
   checkSale,
   checkSales,
+  checkRemove,
 };

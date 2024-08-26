@@ -78,7 +78,7 @@ describe('Products Service Testing', function () {
     expect(data.name).to.be.eq(newName);
   });
 
-  it('Try to update product not in DB', async function () {
+  it('Try to update a product that is not in DB', async function () {
     sinon.stub(productsModel, 'update').resolves({ status: 'NOT_FOUND' });
 
     const newName = 'Nome atualizado';
@@ -86,6 +86,19 @@ describe('Products Service Testing', function () {
     const { status } = await productsService.checkForUpdate(id, newName);
 
     expect(status).to.be.eq('NOT_FOUND');
+  });
+
+  it('Try to update a product with invalid data', async function () {
+    sinon.stub(productsModel, 'update').resolves({
+      message: '"name" length must be at least 5 characters long',
+    });
+
+    const newName = 'AA';
+    const id = 1;
+    const { status, data } = await productsService.checkForUpdate(id, newName);
+
+    expect(status).to.be.eq('INVALID_VALUE');
+    expect(data.message).to.be.eq('"name" length must be at least 5 characters long');
   });
 
   it('Removes a product', async function () {
@@ -102,5 +115,14 @@ describe('Products Service Testing', function () {
     const { data } = await productsService.checkList();
   
     expect(data).to.be.deep.eq([[productsAfterDelete]]);
+  });
+
+  it('Try to remove a product that is not in DB', async function () {
+    sinon.stub(productsModel, 'remove').resolves({ status: 'NOT_FOUND' });
+
+    const id = 999;
+    const { status } = await productsService.checkRemove(id);
+
+    expect(status).to.be.eq('NOT_FOUND');
   });
 });
