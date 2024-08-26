@@ -47,6 +47,17 @@ const newProductFromDB = {
   name: 'Test Product',
 };
 
+const productsAfterDelete = [
+  {
+    id: 2,
+    name: 'Traje de encolhimento',
+  },
+  {
+    id: 3,
+    name: 'Escudo do CapitÃ£o AmÃ©rica',
+  },
+];
+
 const insertIdFromDB = { insertId: 1000 };
 const insertIdFromModel = 1000;
 
@@ -59,4 +70,5 @@ module.exports = {
   insertIdFromDB,
   insertIdFromModel,
   newProductFromDB,
+  productsAfterDelete,
 };
