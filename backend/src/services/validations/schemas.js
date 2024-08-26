@@ -15,9 +15,16 @@ const saleSchema = Joi.object({
   }),
 });
 
+const quantitySchema = Joi.object({
+  quantity: Joi.number().greater(0).required().messages({
+    'number.greater': '"quantity" must be greater than or equal to 1',
+  }),
+});
+
 const salesSchema = Joi.array().items(saleSchema);
 
 module.exports = { 
   productSchema,
   salesSchema,
+  quantitySchema,
 };

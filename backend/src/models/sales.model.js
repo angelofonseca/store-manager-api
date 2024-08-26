@@ -65,9 +65,27 @@ const remove = async (saleId) => {
   await removeSale(saleId);
 };
 
+const updateQuantity = async (quantity, saleId, productId) => {
+  const query = `UPDATE sales AS sal 
+    INNER JOIN sales_products AS sap 
+    ON sal.id = sap.sale_id
+    SET quantity=?
+    WHERE sale_id=? AND
+    product_id=?`;
+
+  await connection.execute(query, [quantity, saleId, productId]);
+  
+  return {
+    productId,
+    quantity,
+    saleId,
+  };
+};
+
 module.exports = {
   list,
   find,
   create,
   remove,
+  updateQuantity,
 };

@@ -1,4 +1,4 @@
-const { productSchema, salesSchema } = require('./schemas');
+const { productSchema, salesSchema, quantitySchema } = require('./schemas');
 
 const validateProductName = (name) => {
   const { error } = productSchema.validate({ name });
@@ -16,7 +16,7 @@ const validateProductName = (name) => {
   }
 };
 
-const validateSale = async (sale) => {
+const validateSale = (sale) => {
   const { error } = salesSchema.validate(sale);
 
   if (error) {
@@ -32,7 +32,20 @@ const validateSale = async (sale) => {
   }
 };
 
+const validateQuantity = (quantity) => {
+  const { error } = quantitySchema.validate({ quantity });
+
+  if (error) {
+    if (error.message.includes('is required')) {
+      return { status: 'BAD_REQUEST', message: error.message };
+    }
+    
+    return { status: 'INVALID_VALUE', message: error.message }; 
+  }
+};
+
 module.exports = {
   validateProductName,
   validateSale,
+  validateQuantity,
 };
