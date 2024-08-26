@@ -84,4 +84,63 @@ describe('Products Controller Testing', function () {
     expect(res.json).to.have.been.calledWith(sinon.match.has('id'));
     expect(res.json).to.have.been.calledWith(sinon.match.has('name'));
   });
+
+  it('Update product', async function () {
+    sinon.stub(productsService, 'checkForUpdate').resolves({
+      status: 'SUCCESSFUL',
+      data: newProductFromDB,
+    });
+
+    const req = {
+      body: { name: 'Test Product' },
+      params: { id: 1 },
+    };
+    const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+
+    await productsController.update(req, res);
+  
+    expect(res.status).to.have.been.calledWith(200);
+  });
+
+  it('Remove product', async function () {
+    sinon.stub(productsService, 'checkRemove').resolves({ status: 'NO_CONTENT' });
+
+    const req = {
+      params: { id: 1 },
+    };
+    const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+      end: sinon.stub(),
+    };
+
+    await productsController.remove(req, res);
+  
+    expect(res.status).to.have.been.calledWith(204);
+  });
+
+  it('Try to remove product that is not in DB', async function () {
+    sinon.stub(productsService, 'checkRemove').resolves({ 
+      status: 'NOT_FOUND',
+      data: {
+        message: 'Product not found',
+      },
+    });
+
+    const req = {
+      params: { id: 13123 },
+    };
+    const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+
+    await productsController.remove(req, res);
+  
+    expect(res.status).to.have.been.calledWith(404);
+    expect(res.json).to.have.been.calledWith(sinon.match.has('message'));
+  });
 });
