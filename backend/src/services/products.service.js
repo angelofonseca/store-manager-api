@@ -46,10 +46,17 @@ const checkRemove = async (productId) => {
   return { status: 'NO_CONTENT' };
 };
 
+const checkSearch = async (search) => {
+  const result = await productsModel.search(search);
+
+  return result;
+};
+
 module.exports = {
   checkList,
   checkProduct,
   checkProductName,
   checkForUpdate,
   checkRemove,
+  checkSearch,
 };

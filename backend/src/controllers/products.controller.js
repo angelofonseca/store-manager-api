@@ -44,10 +44,19 @@ const remove = async (req, res) => {
   res.status(mapStatusHTTP(status)).end();
 };
 
+const search = async (req, res) => {
+  const { q: name } = req.query;
+
+  const result = await productsService.checkSearch(name);
+
+  res.status(200).json(result);
+};
+
 module.exports = {
   list,
   find,
   create,
   update,
   remove,
+  search,
 };
