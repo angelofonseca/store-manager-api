@@ -102,7 +102,7 @@ describe('Sales Service Testing', function () {
       sinon.stub(salesModel, 'find').resolves(saleFromDB);
   
       const saleId = 1;
-      const quantity = { quantity: 100 };
+      const quantity = 100;
       const productId = 1;
   
       const { status, data } = await salesService.checkUpdateQuantity(quantity, saleId, productId);
@@ -116,7 +116,7 @@ describe('Sales Service Testing', function () {
       sinon.stub(salesModel, 'find').resolves([]);
   
       const saleId = 1;
-      const quantity = { quantity: 100 };
+      const quantity = 100;
       const productId = 1;
   
       const { status } = await salesService.checkUpdateQuantity(quantity, saleId, productId);
@@ -129,7 +129,7 @@ describe('Sales Service Testing', function () {
       sinon.stub(salesModel, 'find').resolves(saleFromDB);
   
       const saleId = 1;
-      const quantity = { quantity: 100 };
+      const quantity = 100;
       const productId = 404;
   
       const { status } = await salesService.checkUpdateQuantity(quantity, saleId, productId);
@@ -139,22 +139,12 @@ describe('Sales Service Testing', function () {
     
     it('Test for invalid quantity ON request body', async function () {
       const saleId = 1;
-      const quantity = { quantity: -1 };
+      const quantity = -1;
       const productId = 1;
   
       const { status } = await salesService.checkUpdateQuantity(quantity, saleId, productId);
   
       expect(status).to.be.eq('INVALID_VALUE');
-    });
-  
-    it('Test for quantity ON request body', async function () {
-      const saleId = 1;
-      const quantity = { quantit: 1 };
-      const productId = 1;
-  
-      const { status } = await salesService.checkUpdateQuantity(quantity, saleId, productId);
-  
-      expect(status).to.be.eq('BAD_REQUEST');
     });
   });
 });

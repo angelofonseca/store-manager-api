@@ -35,15 +35,12 @@ const checkSales = async (sales) => {
 };
 
 const checkRemove = async (saleId) => {
-  const { status, data } = await checkSale(saleId);
+  const sale = await checkSale(saleId);
+  if (sale.status === 'NOT_FOUND') return sale;
 
-  if (status === 'SUCCESSFUL') {
-    await salesModel.remove(saleId);
+  await salesModel.remove(saleId);
 
-    return { status: 'NO_CONTENT' };
-  }
-
-  return { status, data };
+  return { status: 'NO_CONTENT' };
 };
 
 const checkUpdateQuantity = async (quantity, saleId, productId) => {
