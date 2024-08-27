@@ -1,3 +1,6 @@
+const insertIdFromDB = { insertId: 1000 };
+const insertIdFromModel = 1000;
+
 const productsFromDB = [
   {
     id: 1,
@@ -68,8 +71,16 @@ const updatedProduct = {
   name: 'Nome atualizado',
 };
 
-const insertIdFromDB = { insertId: 1000 };
-const insertIdFromModel = 1000;
+const mockSearch = [
+  {
+    id: 1,
+    name: 'Traje de encolhimento',
+  },
+  {
+    id: 55,
+    name: 'Traje de teste',
+  },
+];
 
 module.exports = {
   productsFromDB,
@@ -83,4 +94,5 @@ module.exports = {
   productsAfterDelete,
   updatedProduct,
   mockProduct,
+  mockSearch,
 };

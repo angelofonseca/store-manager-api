@@ -10,7 +10,7 @@ describe('Sales Model Testing', function () {
     sinon.restore();
   });
   
-  it('Get all sales successfully', async function () {
+  it('List all sales', async function () {
     sinon.stub(connection, 'execute').resolves([salesFromDB]);
   
     const sales = await salesModel.list();
@@ -18,7 +18,7 @@ describe('Sales Model Testing', function () {
     expect(sales).to.be.deep.eq(salesFromModel);
   });
 
-  it('Get a single sale successfully', async function () {
+  it('Find sale', async function () {
     sinon.stub(connection, 'execute').resolves([saleFromDB]);
 
     const id = 1;
@@ -27,7 +27,7 @@ describe('Sales Model Testing', function () {
     expect(sale).to.be.deep.eq(saleFromModel);
   });
 
-  it('Post new sale on table sales', async function () {
+  it('Create sale', async function () {
     sinon.stub(connection, 'execute')
       .onFirstCall()
       .resolves([insertIdFromDB])
@@ -39,7 +39,7 @@ describe('Sales Model Testing', function () {
     expect(sale.id).to.be.eq(insertIdFromModel);
   });
 
-  it('Delete a sale by id', async function () {
+  it('Remove sale', async function () {
     sinon.stub(connection, 'execute')
       .onFirstCall()
       .resolves([salesFromDB])
@@ -55,7 +55,7 @@ describe('Sales Model Testing', function () {
     expect(saleFromDB.length).to.be.eq(removedSale.length);
   });
 
-  it('Update quantity of a sales product', async function () {
+  it('Updates product quantity in a sale', async function () {
     sinon.stub(connection, 'execute')
       .onFirstCall()
       .resolves([saleFromDB])

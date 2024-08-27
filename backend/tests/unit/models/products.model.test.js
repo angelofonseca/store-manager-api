@@ -10,15 +10,17 @@ const {
   mockNewProduct, 
   insertIdFromDB, 
   insertIdFromModel,
-  productsAfterDelete, 
+  productsAfterDelete,
+  updatedProduct,
+  mockSearch, 
 } = require('../mocks/products.mock');
 
 describe('Products Model Testing', function () {
   afterEach(function () {
     sinon.restore();
   });
-
-  it('Get all products', async function () {
+  
+  it('List all products', async function () {
     sinon.stub(connection, 'execute').resolves([productsFromDB]);
 
     const products = await productsModel.list();
@@ -46,17 +48,13 @@ describe('Products Model Testing', function () {
   });
 
   it('Update product', async function () {
-    const newName = 'Nome Atualizado';
-    const productUpdated = {
-      id: 1,
-      name: 'Nome Atualizado',
-    };
+    const newName = 'Nome atualizado';
 
     sinon.stub(connection, 'execute')
       .onFirstCall()
       .resolves([[productFromDB]])
       .onSecondCall()
-      .resolves(productUpdated);
+      .resolves(updatedProduct);
 
     const id = 1;
 
@@ -64,9 +62,9 @@ describe('Products Model Testing', function () {
 
     expect(product.name).to.be.eq(productFromModel.name);
 
-    const updatedProduct = await productsModel.update(newName, id);
+    const result = await productsModel.update(newName, id);
 
-    expect(updatedProduct).to.be.deep.eq(productUpdated);
+    expect(result).to.be.deep.eq(updatedProduct);
   });
 
   it('Remove product', async function () {
@@ -86,5 +84,12 @@ describe('Products Model Testing', function () {
     await productsModel.remove(id);
 
     expect(productsAfterDelete.length).to.be.eq(2);
+  });
+
+  it('Search product', async function () {
+    sinon.stub(connection, 'execute').resolves([mockSearch]);
+    const search = await productsModel.search('Traje');
+
+    expect(search).to.be.deep.eq(mockSearch);
   });
 });
