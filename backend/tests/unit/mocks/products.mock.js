@@ -58,6 +58,16 @@ const productsAfterDelete = [
   },
 ];
 
+const mockProduct = {
+  id: 1,
+  name: 'Nome',
+};
+
+const updatedProduct = {
+  id: 1,
+  name: 'Nome atualizado',
+};
+
 const insertIdFromDB = { insertId: 1000 };
 const insertIdFromModel = 1000;
 
@@ -71,4 +81,6 @@ module.exports = {
   insertIdFromModel,
   newProductFromDB,
   productsAfterDelete,
+  updatedProduct,
+  mockProduct,
 };

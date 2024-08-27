@@ -33,7 +33,7 @@ const validateSale = (sale) => {
 };
 
 const validateQuantity = (quantity) => {
-  const { error } = quantitySchema.validate({ quantity });
+  const { error } = quantitySchema.validate(quantity);
 
   if (error) {
     if (error.message.includes('is required')) {
