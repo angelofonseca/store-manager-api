@@ -58,7 +58,8 @@ const checkUpdateQuantity = async (quantity, saleId, productId) => {
 
   const updatedProduct = await salesModel.updateQuantity(quantity, saleId, productId);
 
-  return { status: 'SUCCESSFUL',
+  return { 
+    status: 'SUCCESSFUL',
     data: {
       date: findProduct.date,
       ...updatedProduct,

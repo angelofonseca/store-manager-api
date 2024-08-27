@@ -132,6 +132,27 @@ const missingProductIdSale = [
   },
 ];
 
+const removedSale = [
+  {
+    productId: 1,
+    saleId: 1,
+    quantity: 5,
+    date: DATE,
+  },
+  {
+    productId: 2,
+    saleId: 1,
+    quantity: 10,
+    date: DATE,
+  },
+];
+
+const updatedSale = {
+  productId: 1,
+  quantity: 100,
+  saleId: 1,
+};
+
 module.exports = {
   salesFromDB,
   saleFromDB,
@@ -142,4 +163,6 @@ module.exports = {
   validSale,
   invalidProductIdSale,
   missingProductIdSale,
+  removedSale,
+  updatedSale,
 };

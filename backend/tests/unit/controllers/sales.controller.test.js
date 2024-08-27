@@ -3,7 +3,7 @@ const sinon = require('sinon');
 
 const { salesController } = require('../../../src/controllers/index');
 const { salesService } = require('../../../src/services/index');
-const { saleFromDB, salesFromDB, validSale, newSaleFromModel } = require('../mocks/sales.mock');
+const { saleFromDB, salesFromDB, validSale, newSaleFromModel, updatedSale } = require('../mocks/sales.mock');
 const { listSales, listSale, invalidSaleId, createdSale } = require('../mocks/results.mock');
 
 describe('Sales Controller Testing', function () {
@@ -75,5 +75,46 @@ describe('Sales Controller Testing', function () {
   
     expect(res.status).to.have.been.calledWith(201);
     expect(res.json).to.have.been.calledWith(newSaleFromModel);
+  });
+
+  it('Remove sale', async function () {
+    sinon.stub(salesService, 'checkRemove').resolves({ status: 'NO_CONTENT' });
+
+    const req = {
+      params: { id: 2 },
+    };
+    const res = {
+      status: sinon.stub().returnsThis(),
+      end: sinon.stub(),
+    };
+
+    await salesController.remove(req, res);
+  
+    expect(res.status).to.have.been.calledWith(204);
+  });
+
+  it('Update product quantity in sale', async function () {
+    sinon.stub(salesService, 'checkUpdateQuantity').resolves(
+      {
+        status: 'SUCCESSFUL',
+        data: {
+          date: '2024-08-22T20:00:39.000Z',
+          ...updatedSale,
+        },
+      },
+    );
+
+    const req = {
+      params: { saleId: 1, productId: 1 },
+      body: { quantity: 100 },
+    };
+    const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+
+    await salesController.updateQuantity(req, res);
+  
+    expect(res.status).to.have.been.calledWith(200);
   });
 });

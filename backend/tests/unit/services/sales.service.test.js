@@ -12,6 +12,7 @@ const {
   validSale,
   invalidProductIdSale,
   missingProductIdSale,
+  updatedSale,
 } = require('../mocks/sales.mock');
 
 describe('Sales Service Testing', function () {
@@ -77,7 +78,7 @@ describe('Sales Service Testing', function () {
     expect(status).to.be.eq('NOT_FOUND');
   });
 
-  it('If a value doesnt match a condition on Joi schema', async function () {
+  it('When its missing productId doesnt match a condition on Joi schema', async function () {
     sinon.stub(productsService, 'checkProduct')
       .onFirstCall()
       .resolves({ status: 'BAD_REQUEST' })
@@ -87,5 +88,43 @@ describe('Sales Service Testing', function () {
     const { status } = await salesService.checkSales(missingProductIdSale);
 
     expect(status).to.be.eq('BAD_REQUEST');
+  });
+
+  it('Test item removed', async function () {
+    sinon.stub(salesModel, 'find').resolves([saleFromDB]);
+
+    const saleId = 2;
+    const { status } = await salesService.checkRemove(saleId);
+
+    expect(status).to.be.eq('NO_CONTENT');
+  });
+
+  it('Test item not removed', async function () {
+    sinon.stub(salesModel, 'find').resolves([]);
+
+    const saleId = 21231;
+    const { status } = await salesService.checkRemove(saleId);
+
+    expect(status).to.be.eq('NOT_FOUND');
+  });
+
+  it('Test if item is updated', async function () {
+    sinon.stub(salesModel, 'updateQuantity').resolves(updatedSale);
+
+    const saleId = 1;
+    const quantity = 100;
+    const productId = 1;
+    const { status } = await salesService.checkUpdateQuantity(quantity, saleId, productId);
+
+    expect(status).to.be.eq('SUCCESSFUL');
+  });
+
+  it('Test for invalid quantity ON checkUpdateQuantity', async function () {
+    const saleId = 1;
+    const quantity = -1;
+    const productId = 1;
+    const { status } = await salesService.checkUpdateQuantity(quantity, saleId, productId);
+
+    expect(status).to.be.eq('INVALID_VALUE');
   });
 });
