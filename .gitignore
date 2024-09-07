@@ -295,5 +295,3 @@ reports
 
 # stryker temp files
 .stryker-tmp
-
-trybe-filter-repo.sh
