@@ -1,3 +1,5 @@
+# Este arquivo foi criado pela Trybe.
+
 services:
   backend:
     build: backend
@@ -29,7 +31,7 @@ services:
       - 3306:3306
     healthcheck:
       # Deve aguardar o banco ficar operacional
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
       timeout: 10s
       retries: 5
     volumes:
