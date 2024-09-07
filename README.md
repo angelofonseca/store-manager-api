@@ -7,15 +7,14 @@ O Store Manager API é um sistema de gerenciamento de vendas que utiliza operaç
 Back-end:
 > Desenvolvido usando: NodeJS, ExpressJS, MYSQL, CommonJS.
 
+Testes:
+> Sinon, Chai.
+
 ## Créditos
 
 Este projeto inclui arquivos e recursos desenvolvidos pela [Trybe](https://www.betrybe.com/).
 
 Agradecimentos especiais à Trybe por fornecer a base para este projeto.
-
-## Testes
-
-Para realizar os testes foi utilizado o sinon, chai e sinon-chai.
 
 ## Instalação
 
